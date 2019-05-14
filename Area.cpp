@@ -5,8 +5,7 @@ void Area::addbloq(int newtam){
     for(int i = 0; i < size-1; i++){
         n_arr[i]=arr[i];
     }
-    int tempx=size/(int)numx,tempy;
-    n_arr[size-1].setPosx_y(size/(int)(numx),size/(int)(numy));
+    n_arr[size-1].setPosx_y((int)numx/size,(int)numy%size);
     n_arr[size-1].setTam(newtam);
     delete[] arr;
     arr=n_arr;
