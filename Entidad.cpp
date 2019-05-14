@@ -1,21 +1,22 @@
-#include"Entidad.h"
-#include<stdlib.h>
-#include<iostream>
-#include<math.h>
+#include "Headers.h"
+#include "ValoresGlobales.h"
 using namespace std;
-#define rango 250
 Entidad::Entidad(){
     doll.setPosition(sf::Vector2f(0,0));
     //agresividad
     aggressiveness=rand()%4+1;
     //set
-    posx=0;posy=0;objx=0;objy=0;
-    movrad=7.5;
-    doll.setRadius(7.5);
+    posx=rad/2;
+    posy=rad/2;
+    objx=0;
+    objy=0;
+    movrad=pred_enemy_mov;
+    doll.setRadius(pred_enemy_tam);
     //color
     int r=rand()%255;
     int g=rand()%255;
     int b=rand()%255;
+    //Seteando el shape
     doll.setFillColor(sf::Color(r,g,b));
     doll.setOutlineColor(sf::Color(b,r,g));
     doll.setOutlineThickness(1);
@@ -26,7 +27,7 @@ Entidad::Entidad(float tam_1,float tam_2,float radius){
     posy=tam_2;
     objx=350;
     objy=350;
-    movrad=radius;
+    movrad=pred_enemy_mov;
     doll.setRadius(radius);
     int r=rand()%255;
     int g=rand()%255;
@@ -35,9 +36,9 @@ Entidad::Entidad(float tam_1,float tam_2,float radius){
 }
 
 void Entidad::searchObj(){
-    setObj((rand()%(int(posx)+(2*rango)))-rango,(rand()%(int(posy)+(2*rango)))-rango);
-    if(objx<=0)objx=0;
-    if(objy<=0)objy=0;
+    int nobjx=rand()%(int)(movrad*2)-movrad+posx;
+    int nobjy=rand()%(int)(movrad*2)-movrad+posy;
+    setObj(nobjx,nobjy);
 }
 
 void Entidad::setObj(float newx,float newy){
@@ -66,10 +67,10 @@ void Entidad::Function_agress(){
 
 
 void Entidad::MoveAutomatico(){
-    Function_agress();
     if(posx==objx && posy==objy && agress_counter==0){
         searchObj();
     }
+    else Function_agress();
     MoveGuided();
 }
 void Entidad::MoveGuided(){

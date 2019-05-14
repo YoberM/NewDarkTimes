@@ -1,21 +1,16 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include "window.h"
-#include "Entidad.h"
-#include "Mapa.h"
-#include "Bloque.h"
-#include <stdlib.h>
-#define Nentity 6000
+#include "Headers.h"
+#define Nentity 500
 
-//g++ main.cpp -o test -lsfml-graphics -lsfml-window -lsfml-system Mapa.cpp prueba.cpp window.cpp
+//g++ main.cpp -o test -lsfml-graphics -lsfml-window -lsfml-system Mapa.cpp window.cpp Entidad.cpp Area.cpp Colisiones.cpp Bloque.cpp
 
+// El Main esta muy frondoso, MAS ABSTRACCION!
 int main()
 {
     // create the window
     sf::RenderWindow window(sf::VideoMode(1366, 768), "My window");
     window.setMouseCursorGrabbed(0);
     srand(time(NULL));
-    Entidad *mobs=new Entidad[Nentity];
+    Zombie *mobs=new Zombie[Nentity];
     for(int i = 0; i < Nentity; i++)
     {
         mobs[i].setPosx_y(1366/2,768/2);
@@ -25,7 +20,7 @@ int main()
     int x=0;
     window.setFramerateLimit(60);
     // run the program as long as the window is open
-    Mapa render(800/10,17);
+    Mapa render(800/10,16,8);
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -40,8 +35,11 @@ int main()
         // clear the window with black color
         window.clear(sf::Color::Black);
         //
+        //DIBUJO DEL MAPA
+        render.Dibujar(window,0);
+        //render.Random(window);
+
         //
-        render.Random(window);
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             sf::CircleShape ward(10);
             ward.setFillColor(sf::Color(100,100,100));
@@ -59,6 +57,18 @@ int main()
             mobs[i].MoveAutomatico();
             mobs[i].Dibujar(window);
         }
+
+        for(int i=0;i<Nentity;i++){
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                mobs[i].setObj(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y);   
+            }
+            else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)){
+                mobs[i].setObj(800/(i+2),(i+1)*150);
+            }
+            mobs[i].MoveAutomatico();
+            mobs[i].Dibujar(window);
+        }
+
         for(int i=0;i<4;i++){
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 mobs123[i].setObj(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y);   

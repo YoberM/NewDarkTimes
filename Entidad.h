@@ -6,8 +6,8 @@ class Entidad
 {
 	float posx,posy,objx,objy; //Tamaño de la ventana
     float rad,movrad;
-    char state;
-    int automatic=0;
+    char type; //tipo de Figura
+    bool automatic=0;
     int aggressiveness=1; //agresividad , 0 - 3 siendo 3 el peor
     int agress_counter=0;//contador , va sumandose hasta un limite
     sf::CircleShape doll;
