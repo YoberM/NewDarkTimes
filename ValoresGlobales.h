@@ -1,6 +1,9 @@
+//Atributos window
+#define pred_window_tamx 1400
+#define pred_window_tamy 1000
 //Atributos de MAPA
-#define pred_mapx_tam 1080   //en este caso la relacion es de 5/4
-#define pred_mapy_tam 1080
+#define pred_mapx_tam 1600   //en este caso la relacion es de 5/4
+#define pred_mapy_tam 1600
 
 //Atributos de Areas
 #define pred_areas_tamx pred_mapx_tam/pred_areas_numx
@@ -10,6 +13,8 @@
 
 //Atributos de Bloques
 #define pred_bloq_tam 100
+#define pred_bloq_numx 4
+#define pred_bloq_numy 4
 
 
 //Atributos predeterminados ENEMIGOS

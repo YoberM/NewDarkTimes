@@ -1,6 +1,8 @@
 #include"Headers.h"
 Bloque::Bloque(){
-    tam=pred_bloq_tam; posx=0;posy=0;
+    tam=pred_bloq_tam;
+    posx=0;
+    posy=0;
 }
 
 Bloque::Bloque(const Bloque &n_bloque){
@@ -11,8 +13,10 @@ Bloque::Bloque(const Bloque &n_bloque){
     shape=n_bloque.shape;    
 }
 
-Bloque::Bloque(float n_posx,float n_posy,int n_tam){
-    ;
+Bloque::Bloque(float n_posx,float n_posy,int n_tam,sf::Texture textura){
+    posx=n_posx;
+    posy=n_posy;
+    tam=n_tam;
 }
 
 void Bloque::setTexture(sf::Texture n_texture){
@@ -25,6 +29,7 @@ void Bloque::setColorBloque(int r,int g,int b){
 
 void Bloque::setTam(float newtam){
     tam=newtam;
+    shape.setSize(sf::Vector2f(tam,tam));
 }
 void Bloque::setPosx(float newx){
     posx=newx;
@@ -35,5 +40,11 @@ void Bloque::setPosy(float newy){
     shape.setPosition(sf::Vector2f(posx,newy));
 }
 void Bloque::setPosx_y(float newx,float newy){
-    setPosx(newx); setPosy(newy);
+    posx=newx;
+    posy=newy;
+    shape.setPosition(sf::Vector2f(newx,newy));
 }
+
+int Bloque::getTam(){return tam;}
+float Bloque::getPosx(){return posx;}
+float Bloque::getPosy(){return posy;}

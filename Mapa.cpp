@@ -2,19 +2,37 @@
 #define r rand()%255
 #define rango 17
 Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq){ //tam_new tamaño del mapa ,n_cantidad= numero de areas
+    //Areas
     area_numx=n_cantidad;
     area_numy=n_cantidad;
     area_num=n_cantidad*n_cantidad;
+    //Bloques
     area_numbloq=n_cantidadbloq*n_cantidadbloq;
     area_numbloqx=n_cantidadbloq;
     area_numbloqy=n_cantidadbloq;
-    tam=tam_new;
+    //Tamaño
+    tam=tam_new;//Tamaño del mapa
+    area_tamx=pred_areas_tamx;
+    area_tamy=pred_areas_tamy;
+    //Nuevo Array de areas
     Area *new_area = new Area[area_numx*area_numy];
+    
+    //Agregando los datos al array
+    bool ward=0;
     for(int i=0;i<area_num;i++){
+            new_area[i].setTamBloq(pred_bloq_tam);
+            new_area[i].setnumx_y(pred_areas_numx,pred_areas_numy);
+            new_area[i].setposx_y(i/area_numx*area_tamx,(i+area_numy)%area_numy*area_tamy);
         for(int j=0;j<area_numbloq;j++){
             new_area[i].addbloq(pred_bloq_tam);
-            new_area[i].setColorbloq(j,255,255,255);
-            new_area[i].setTamBloq(j,pred_bloq_tam);
+            if(ward){
+                new_area[i].setColorbloq(j,255,255,255);
+                ward=!ward;
+            }
+            else{ 
+                new_area[i].setColorbloq(j,100,100,100);
+                ward=!ward;
+            }
         }
     }
     arr_areas=new_area;
@@ -68,15 +86,22 @@ void Mapa::Random(sf::RenderWindow &window){
 }
 
 void Mapa::Dibujar_mapa(sf::RenderWindow &window){
-    for(int i = 0; i < area_numx; i++){
-        for(int j = 0; i < area_numy; i++){
-            Dibujar(window,i*area_numx);
-        }
-        
+    for(int i = 0; i < area_num; i++){
+        Dibujar_Area(window,i);
+        //std::cout<<"Area :"<<i<<"Posx,y=("<<arr_areas[i].posx<<","<<arr_areas[i].posy<<std::endl;
     }
     
 }
 
 void Mapa::Dibujar(sf::RenderWindow &window,int n){
+    int ward=arr_areas->arr[n].shape.getFillColor().b;
+    std::cout<<arr_areas->arr[n].shape.getSize().x<<std::endl;
     window.draw(arr_areas->arr[n].shape);
 }
+
+void Mapa::Dibujar_Area(sf::RenderWindow &window,int n){
+    for(int i=0;i<area_numbloq;i++){
+        window.draw(arr_areas[n].arr[i].shape);
+    }
+}
+

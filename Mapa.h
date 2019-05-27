@@ -7,9 +7,11 @@ class Mapa
     int area_num;//cantidad de Areas normalmente cuadrado
     int area_numx;
     int area_numy;
-    int area_numbloq;
+    int area_numbloq;//cantidad de bloques por area
     int area_numbloqx;
     int area_numbloqy;
+    int area_tamx;
+    int area_tamy;
     Area *arr_areas;
 public:
     Mapa(float,int,int);
@@ -21,6 +23,7 @@ public:
 	void Random(sf::RenderWindow&);
     void Dibujar_mapa(sf::RenderWindow&);
     void Dibujar(sf::RenderWindow&,int);
+    void Dibujar_Area(sf::RenderWindow&,int);
 };
 #endif 
 

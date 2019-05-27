@@ -7,7 +7,7 @@
 int main()
 {
     // create the window
-    sf::RenderWindow window(sf::VideoMode(1366, 768), "My window");
+    sf::RenderWindow window(sf::VideoMode(pred_window_tamx,pred_window_tamy), "My window");
     window.setMouseCursorGrabbed(0);
     srand(time(NULL));
     Zombie *mobs=new Zombie[Nentity];
@@ -20,7 +20,7 @@ int main()
     int x=0;
     window.setFramerateLimit(60);
     // run the program as long as the window is open
-    Mapa render(800/10,16,8);
+    Mapa render(800,pred_areas_numx,pred_bloq_numx);
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -36,12 +36,14 @@ int main()
         window.clear(sf::Color::Black);
         //
         //DIBUJO DEL MAPA
-        render.Dibujar(window,0);
-        //render.Random(window);
+        //render.Dibujar(window,1);
+        //render.Dibujar(window,2);
+        render.Dibujar_mapa(window);
+        //render.Dibujar_Area(window,0);
 
         //
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-            sf::CircleShape ward(10);
+            sf::CircleShape ward(100);
             ward.setFillColor(sf::Color(100,100,100));
             sf::Vector2i mposition= sf::Mouse::getPosition();
             ward.setPosition(sf::Vector2f(mposition.x,mposition.y));
@@ -60,10 +62,10 @@ int main()
 
         for(int i=0;i<Nentity;i++){
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                mobs[i].setObj(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y);   
+                mobs[i].setObj(sf::Mouse::getPosition().x+5,sf::Mouse::getPosition().y+5);   
             }
             else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-                mobs[i].setObj(800/(i+2),(i+1)*150);
+                    mobs[i].setObj(100*i%(16*100),100*i/(16*100)*100);
             }
             mobs[i].MoveAutomatico();
             mobs[i].Dibujar(window);

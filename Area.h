@@ -7,13 +7,16 @@ class Area{
     unsigned int size;//numero total de bloques
     float posx;       //pos en x
     float posy;       //pos en y
+    float bloqtam;
     friend class Mapa;//para poder acceder a los datos desde mapa y bloque
 public:
     Area(){//por defecto
         posx=0;
         posy=0;
-        numx;
+        numx=0;
+        numy=0;
         size=0;
+        bloqtam=0;
         arr=new Bloque[size];}
     Area(int n){//con un rango cuadrado de bloques
         numx=n;
@@ -41,10 +44,17 @@ public:
     }
     void addbloq(int);
     void setColorbloq(int ,int,int,int);
-    void setTamBloq(int,int);
-    void set_texture_bloq(const uint n,sf::Texture &n_texture){
+    void setTamBloq(int);
+    void set_texture_bloq(const unsigned int,sf::Texture &){
         ;
     }
+    void setnumx(const int);
+    void setnumy(const int);
+    void setnumx_y(const int,const int);
+    void setposx(const float);
+    void setposy(const float);
+    void setposx_y(const float,const float);
+    void setposx_ybloq(unsigned int,const float,const float);
 };
 
 #endif //AREA_H
