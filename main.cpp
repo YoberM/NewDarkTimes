@@ -19,8 +19,30 @@ int main()
     Entidad mobs123[4]={{400,400,5},{400,400,5},{400,400,5},{400,400,5}};
     int x=0;
     window.setFramerateLimit(60);
+    //Texturas
+    sf::Texture *texturas;
+    texturas=new sf::Texture[1];
+    texturas[0].loadFromFile("Texturas/terreno1.jpg");
+    int mapa_arr[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]={
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+    };
     // run the program as long as the window is open
-    Mapa render(800,pred_areas_numx,pred_bloq_numx);
+    Mapa render(800,pred_areas_numx,pred_bloq_numx,*texturas);
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop

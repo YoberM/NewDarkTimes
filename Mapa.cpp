@@ -1,7 +1,7 @@
 #include "Mapa.h"
 #define r rand()%255
 #define rango 17
-Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq){ //tam_new tamaño del mapa ,n_cantidad= numero de areas
+Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq,sf::Texture &texturas){ //tam_new tamaño del mapa ,n_cantidad= numero de areas
     //Areas
     area_numx=n_cantidad;
     area_numy=n_cantidad;
@@ -26,7 +26,7 @@ Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq){ //tam_new tamaño d
         for(int j=0;j<area_numbloq;j++){
             new_area[i].addbloq(pred_bloq_tam);
             if(ward){
-                new_area[i].setColorbloq(j,255,255,255);
+                new_area[i].set_texture_bloq(j,texturas);
                 ward=!ward;
             }
             else{ 

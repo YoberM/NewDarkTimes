@@ -17,14 +17,18 @@ void Area::addbloq(int newtam){
     arr=n_arr;
 }
 
-void Area::setTamBloq(int newtam){
-    bloqtam=newtam;
-}
 
 void Area::setColorbloq(int n,int r,int g,int b){
     arr[n].setColorBloque(r,g,b);
 }
 
+void Area::setTamBloq(int newtam){
+    bloqtam=newtam;
+}
+
+void Area::set_texture_bloq(const unsigned int n,sf::Texture &textura){
+    arr[n].shape.setTexture(&textura);
+}
 void Area::setnumx(const int newx){numx=newx;}
 void Area::setnumy(const int newy){numy=newy;}
 void Area::setnumx_y(const int newx,const int newy){

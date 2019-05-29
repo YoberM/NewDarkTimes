@@ -16,7 +16,7 @@ public:
     Colisiones(Entidad *n_ent,int n_enti_size,Bloque *n_blo,int n_bloq_size){
         
     }
-    bool Detectar(,)
+    bool Entidad_Entidad(int,int);
 };
 
 #endif //COLISIONES_H

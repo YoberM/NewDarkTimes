@@ -1,8 +1,6 @@
 #include"window.h"
 #include <math.h>
 #include <string>
-#define tamenemy 30
-#define velenemy 0.70
 
 
 Window::Window(float tam_1,float tam_2,std::string tittle){

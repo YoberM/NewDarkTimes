@@ -13,8 +13,9 @@ class Mapa
     int area_tamx;
     int area_tamy;
     Area *arr_areas;
+    sf::Texture *texturas;
 public:
-    Mapa(float,int,int);
+    Mapa(float,int,int,sf::Texture&);
     //tamano del mapa , numero de areas , numero de bloques por area
     Mapa(float,int,int,int,int);
     //tamano del mapa , numero de areas en X y Y , numnero de bloques por area X y Y
