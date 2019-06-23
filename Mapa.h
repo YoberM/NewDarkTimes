@@ -17,6 +17,8 @@ class Mapa
 public:
     Mapa(float,int,int,sf::Texture&);
     //tamano del mapa , numero de areas , numero de bloques por area
+    Mapa(float,int,int,sf::Texture&,int[][pred_bloq_numx*pred_bloq_numy]);
+    //
     Mapa(float,int,int,int,int);
     //tamano del mapa , numero de areas en X y Y , numnero de bloques por area X y Y
     Mapa(float,int,int[]);

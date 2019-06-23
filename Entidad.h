@@ -20,10 +20,15 @@ public:
     void setPosx(float);
     void setPosy(float);
     void setPosx_y(float,float);
+    void setRad(float);
+    void setMovRad(float);
     void Function_agress();
     void MoveAutomatico();
     void MoveGuided();
     void Dibujar(sf::RenderWindow &);
+    float getPosx(){return posx;}
+    float getPosy(){return posy;}
+    float getTam(){return rad;}
 };
 #endif 
 

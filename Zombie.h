@@ -1,6 +1,6 @@
 #ifndef ZOMBIE_H
 #define ZOMBIE_H
-#include "Entidad.h"
+#include "Headers.h"
 class Zombie : public Entidad{
 
 };

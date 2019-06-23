@@ -5,11 +5,15 @@ Entidad::Entidad(){
     doll.setPosition(sf::Vector2f(0,0));
     //agresividad
     aggressiveness=rand()%4+1;
+    //Radio
+    rad=pred_enemy_tam;
+    movrad=pred_enemy_mov;
     //set
-    posx=rad/2;
-    posy=rad/2;
+    posx=rad;
+    posy=rad;
     objx=0;
     objy=0;
+    //
     movrad=pred_enemy_mov;
     doll.setRadius(pred_enemy_tam);
     //color
@@ -47,13 +51,13 @@ void Entidad::setObj(float newx,float newy){
 }
 
 void Entidad::setPosx(float newx){
-    posx=newx;
-    objx=newx;
+    posx=newx+rad;
+    objx=newx+rad;
     doll.setPosition(sf::Vector2f(newx,posy)); 
 }
 void Entidad::setPosy(float newy){
-    posy=newy;
-    objy=newy;
+    posy=newy+rad;
+    objy=newy+rad;
     doll.setPosition(sf::Vector2f(posx,newy));
 }
 void Entidad::setPosx_y(float newx,float newy){

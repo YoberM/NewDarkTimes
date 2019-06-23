@@ -1,3 +1,5 @@
+#ifndef VALORESGLOBALES_H
+#define VALORESGLOBALES_H
 //Atributos window
 #define pred_window_tamx 1400
 #define pred_window_tamy 1000
@@ -31,3 +33,4 @@
 #define pred_neutral_resistance 30
 #define pred_neutral_dmg 20
 
+#endif

@@ -1,6 +1,24 @@
 #include "Headers.h"
-#define Nentity 500
 
+#define Nentity 2
+int mapa_arr[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]={
+        {1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,0},
+        {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+    };
 //g++ main.cpp -o test -lsfml-graphics -lsfml-window -lsfml-system Mapa.cpp window.cpp Entidad.cpp Area.cpp Colisiones.cpp Bloque.cpp
 
 // El Main esta muy frondoso, MAS ABSTRACCION!
@@ -23,26 +41,8 @@ int main()
     sf::Texture *texturas;
     texturas=new sf::Texture[1];
     texturas[0].loadFromFile("Texturas/terreno1.jpg");
-    int mapa_arr[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]={
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    };
     // run the program as long as the window is open
-    Mapa render(800,pred_areas_numx,pred_bloq_numx,*texturas);
+    Mapa render(800,pred_areas_numx,pred_bloq_numx,*texturas,mapa_arr);
     while (window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -66,7 +66,7 @@ int main()
         //
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
             sf::CircleShape ward(100);
-            ward.setFillColor(sf::Color(100,100,100));
+            ward.setFillColor(sf::Color(50,200,100));
             sf::Vector2i mposition= sf::Mouse::getPosition();
             ward.setPosition(sf::Vector2f(mposition.x,mposition.y));
             window.draw(ward);
