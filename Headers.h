@@ -1,9 +1,9 @@
 
 #include <SFML/Graphics.hpp>
+#include "Mapa.h"
 #include <iostream>
 #include "window.h"
 #include "Entidad.h"
-#include "Mapa.h"
 #include "Bloque.h"
 #include "Area.h"
 #include "Zombie.h"
@@ -13,6 +13,4 @@
 #include <math.h>
 #include "MapModel.h"
 #include <string.h>
-
-
 

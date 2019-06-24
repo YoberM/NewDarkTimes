@@ -1,6 +1,6 @@
 #include "Headers.h"
+#define Nentity 100
 
-#define Nentity 2
 int mapa_arr[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]={
         {1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,0},
         {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -22,8 +22,7 @@ int mapa_arr[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]={
 //g++ main.cpp -o test -lsfml-graphics -lsfml-window -lsfml-system Mapa.cpp window.cpp Entidad.cpp Area.cpp Colisiones.cpp Bloque.cpp
 
 // El Main esta muy frondoso, MAS ABSTRACCION!
-int main()
-{
+int main(){
     // create the window
     sf::RenderWindow window(sf::VideoMode(pred_window_tamx,pred_window_tamy), "My window");
     window.setMouseCursorGrabbed(0);
@@ -35,6 +34,10 @@ int main()
     }
     
     Entidad mobs123[4]={{400,400,5},{400,400,5},{400,400,5},{400,400,5}};
+    
+    Colisiones col;
+    col.setEntidades(mobs,Nentity);
+    
     int x=0;
     window.setFramerateLimit(60);
     //Texturas
@@ -45,6 +48,12 @@ int main()
     Mapa render(800,pred_areas_numx,pred_bloq_numx,*texturas,mapa_arr);
     while (window.isOpen())
     {
+        for(int i=0;i<Nentity;i++){
+            for(int j=0;j<Nentity;j++){
+                if(i==j)continue;
+                col.Entidad_Entidad(i,j);
+            }
+        }
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))

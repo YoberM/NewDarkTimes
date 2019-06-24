@@ -1,12 +1,11 @@
 //Patron de diseño que controla el comportamiento de las demas clases en conjunto
-#ifndef MEDIATOR_H
-#define MEDIATOR_H
+#ifndef MEDIADOR_H
+#define MEDIADOR_H
 #include "Headers.h"
 class Mediator{
     Entidad *entidades;
     unsigned int numEnt;
-    Bloque *bloques;
-    unsigned int numBloq;
+    Mapa mapa;
     Entidad *jugador;
     Colisiones colisiones;
     sf::Texture *textentity;
@@ -16,11 +15,14 @@ public:
     Mediator(){
 
     }
-    Mediator(Entidad *entidades,uint numEnt,Bloque *bloques
-            ,uint numBloq,Entidad *jugador){
-        colisiones.setBloques(bloques,numBloq);
+    Mediator(Entidad *entidades,uint numEnt,Mapa mapa,Entidad *jugador){
+        //colisiones.setMapa(mapa);
         colisiones.setEntidades(entidades,numEnt);
         colisiones.setJugador(jugador);
     }
+    
+    void Acciones();
+    void Dibujado(sf::RenderWindow&);
+
 };
 #endif
