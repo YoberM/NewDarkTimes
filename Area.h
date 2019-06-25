@@ -1,5 +1,6 @@
 #ifndef AREA_H
 #define AREA_H
+#include "Bloque.h"
 class Area{
     Bloque *arr;
     unsigned int numx;//numero de bloques en x
@@ -41,6 +42,9 @@ public:
         for(int i=0;i<size;i++){
             arr[i]=otherarea.arr[i];
         }
+    }
+    ~Area(){
+        delete[] arr;
     }
     void addbloq(int);
     void setColorbloq(int ,int,int,int);

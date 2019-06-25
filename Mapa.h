@@ -1,6 +1,9 @@
 #ifndef MAPA_H
 #define MAPA_H
-#include"Headers.h"
+#include "Headers.h"
+#include "Area.h"
+#include <SFML/Graphics.hpp>
+#include "ValoresGlobales.h"
 class Mapa
 {
 	float tam; //Tamaño del mapa

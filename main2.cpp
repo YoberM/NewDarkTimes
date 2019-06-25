@@ -5,10 +5,9 @@
 #include "ValoresGlobales.h"
 #include "Zombie.h"
 #include "Colisiones.h"
-#include "Mediador.h"
 
 
-#define Nentity (uint)100
+#define Nentity 100
 
 int mapa_arr[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]={
         {1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,0},
@@ -36,7 +35,7 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(pred_window_tamx,pred_window_tamy), "My window");
     window.setMouseCursorGrabbed(0);
     srand(time(NULL));
-    Entidad *mobs=new Entidad[Nentity];
+    Zombie *mobs=new Zombie[Nentity];
     for(int i = 0; i < Nentity; i++)
     {
         mobs[i].setPosx_y(1366/2,768/2);
@@ -53,15 +52,6 @@ int main(){
     texturas[0].loadFromFile("Texturas/terreno1.jpg");
     // run the program as long as the window is open
     Mapa render(800,pred_areas_numx,pred_bloq_numx,*texturas,mapa_arr);
-    Entidad jugador();
-    //Mediator
-        Mediator mediator;
-        mediator.setEnt(mobs,Nentity);
-        mediator.setMapa(&render);
-        mediator.setWindow(&window);
-
-    //!Mediator
-    
     while (window.isOpen())
     {
         for(int i=0;i<Nentity;i++){
@@ -81,21 +71,32 @@ int main(){
 
         // clear the window with black color
         window.clear(sf::Color::Black);
-        mediator.Dibujado();
-        mediator.Acciones();
         //
         //DIBUJO DEL MAPA
         //render.Dibujar(window,1);
         //render.Dibujar(window,2);
-        //render.Dibujar_mapa(window);
+        render.Dibujar_mapa(window);
         //render.Dibujar_Area(window,0);
 
         //
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+            sf::CircleShape ward(100);
+            ward.setFillColor(sf::Color(50,200,100));
+            sf::Vector2i mposition= sf::Mouse::getPosition();
+            ward.setPosition(sf::Vector2f(mposition.x,mposition.y));
+            window.draw(ward);
+            std::cout<<"mousepressed"<<mposition.x<<mposition.y<<"|";
+        }
         //
         x=(x+1)%300;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))x=0;
         std::cout<<x<<"||";
-        /*
+        for(int i = 0; i < Nentity; i++)
+        {
+            mobs[i].MoveAutomatico();
+            mobs[i].Dibujar(window);
+        }
+
         for(int i=0;i<Nentity;i++){
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 mobs[i].setObj(sf::Mouse::getPosition().x+5,sf::Mouse::getPosition().y+5);   
@@ -105,8 +106,7 @@ int main(){
             }
             mobs[i].MoveAutomatico();
             mobs[i].Dibujar(window);
-        }*/
-
+        }
         // draw everything here...
         // window.draw(...);
         std::cout<<std::endl;

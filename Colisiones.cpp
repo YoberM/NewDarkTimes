@@ -1,7 +1,9 @@
+#include "Colisiones.h"
+#include "Entidad.h"
 #include "Headers.h"
 
 std::string Colisiones::Entidad_Entidad(int n,int m){
-    std::string Direccion ="";
+    std::string Direccion ="N";
     if(sqrt(pow(abs(entidades[n].getPosx()-entidades[m].getPosx()),2)+pow(abs(entidades[n].getPosy()-entidades[m].getPosy()),2))
     <= entidades[n].getRad()+entidades[m].getRad()
     ){
@@ -63,7 +65,7 @@ void Colisiones::ColisionesEntidades(){
     {
         for (int j = 0; i < entidad_size; j++)
         {
-            entidades[i];
+            //entidades[i].;
         }
         
     }

@@ -1,4 +1,4 @@
-#include "Headers.h"
+#include "Area.h"
 
 void Area::addbloq(int newtam){
     Bloque *n_arr=new Bloque[++size];

@@ -2,8 +2,8 @@
 #define STATE_H
 #include <string>
 class StateEntidad{
-    char estado;
-    std::string restriccion;
+    char estado ='N';
+    std::string restriccion="No";
 public:
     StateEntidad(){
         

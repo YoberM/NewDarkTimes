@@ -1,10 +1,12 @@
 #ifndef COLISIONES_H
 #define COLISIONES_H
-#include "Headers.h"
+#include "Mapa.h"
+#include "Entidad.h"
 class Colisiones {
     Entidad *entidades = NULL;
-    int entidad_size=0;
+    unsigned int entidad_size=0;
     Entidad *jugador= NULL;
+    Mapa *mapa;
 public:
     Colisiones(){
         
@@ -23,6 +25,7 @@ public:
     void setEntidades(Entidad *entidades,uint entsize){
         this->entidades = entidades;
         entidad_size = entsize;    
+        std::cout<<entidad_size;
     }
     void setJugador(Entidad *jugador){
         this->jugador = jugador;

@@ -25,13 +25,16 @@ public:
     void setPosx_y(float,float);
     void setRad(float);
     void setMovRad(float);
-    void setState();
+    void setState(char);
+    void setStateres(std::string);
     float getPosx(){return posx;}
     float getPosy(){return posy;}
     float getRad(){return rad;}
     float getObjx(){return objx;}
     float getObjy(){return objy;}
     StateEntidad getState(){return state;}
+    
+
 
     void Function_agress();
     void MoveAutomatico();

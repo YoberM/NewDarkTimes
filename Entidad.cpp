@@ -1,6 +1,7 @@
 #include "Headers.h"
 #include "ValoresGlobales.h"
 #include "State.h"
+#include "Entidad.h"
 using namespace std;
 
 void Entidad::setcolor(uint r,uint g,uint b){
@@ -68,6 +69,9 @@ void Entidad::setPosx_y(float newx,float newy){
     setPosx(newx);
     setPosy(newy);
 }
+void Entidad::setStateres(std::string statenew){
+    state.setres(statenew);
+}
 
 void Entidad::Function_agress(){
     agress_counter++;
@@ -80,7 +84,7 @@ void Entidad::MoveAutomatico(){
         searchObj();
     }
     else Function_agress();
-    MoveGuided();
+    MoveGuidedCol();
 }
 void Entidad::MoveGuided(){
     if(posx==objx && posy==objy)return;
