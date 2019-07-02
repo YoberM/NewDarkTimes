@@ -5,14 +5,58 @@ void Mediator::Acciones(){
     for(int i=0;i<numEnt;i++){
         for(int j=0;j<numEnt;j++){
             if(i==j)continue;
-                entidades[i].setStateres(entidades[i].getStates() + colisiones.Entidad_Entidad(i,j));
+            if(entidades[i].getState().get()=='A'){
+                entidades[i].getState().addres(entidades[i].getStates() + colisiones.Entidad_Entidad(i,j));
+            }
+        }
+        if(colisiones.Entidad_Jugador(i)){
+            std::cout<<-1<<"<salud>"<<salud<<"<-"<<i<<std::endl;
+            salud--;
+        }
+        entidades[i].MoveAutomatico();
+    }
+    AccionBala();
+    for(int i=0;i<numEnt;i++){
+        for(int j=0;j<player->getBalasNum();j++){
+            if(player->getBala(j).getState().get()=='A'){
+                if(colisiones.Entidad_Balas(i,j)){
+                    entidades[i].setState('D');
+                    player->getBala(j).getState().set('I');
+                }
+            }
         }
     }
     
     for(int i=0;i<numEnt;i++){
+        for(int j=0;j<mapa->getarea_num();j++){
+            for(int k=0;k<mapa->getArea(j)->getnumbloq();k++){
+                
+            }
+        }
+    }
+
+    for(int i=0;i<numEnt;i++){
         entidades[i].setStateres("");
     }
     Spawn();
+}
+void Mediator::AccionBala(){
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+        if(boolbala==1){
+            player->getBala(auxbalacontador).setpos(player->getsprite().getPosition());
+            player->getBala(auxbalacontador).setDirBala((Vector2f)player->getmouse());
+            player->getBala(auxbalacontador).getState().set('A');
+            auxbalacontador++;
+            auxbalacontador=auxbalacontador%20;
+            boolbala=0;
+        }
+    }
+    else {
+        boolbala=1;
+    }
+    for(int i=0;i<balanum;i++){
+        player->getBala(i).movebala();
+    }
 }
 
 void Mediator::Spawn(){
@@ -63,11 +107,26 @@ void Mediator::setWindow(sf::RenderWindow *window){
     this->window=window;
 }
 
+void Mediator::setJugador(jugador* player){
+    this->player=player;
+    colisiones.setJugador(player);
+    balanum=player->getBalasNum();
+}
+
 void Mediator::Dibujado(){
     //entidades
     //Bloques
     mapa->Dibujar_mapa(*window);
     for(int i=0;i<numEnt;i++){
-        entidades[i].Dibujar(*window);
+        if(entidades[i].getState().get()=='A'){
+            entidades[i].Dibujar(*window);
+
+        }
     }
+    for(int i=0;i<balanum;i++){
+        if(player->getBala(i).getState().get()=='A'){
+            window->draw(player->getBala(i).getspritebala());
+        }
+    }
+    window->draw(textopantalla);
 }

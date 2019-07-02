@@ -6,8 +6,7 @@ std::string Colisiones::Entidad_Entidad(int n,int m){
     std::string Direccion ="";
     if(sqrt(pow(abs(entidades[n].getPosx()-entidades[m].getPosx()),2) +
             pow(abs(entidades[n].getPosy()-entidades[m].getPosy()),2) )
-    <= entidades[n].getRad()+entidades[m].getRad()
-    ){
+    <= entidades[n].getRad()+entidades[m].getRad()){
 
         if(entidades[n].getPosx()-entidades[m].getPosx()>=0){
             Direccion+="l";//left
@@ -25,49 +24,31 @@ std::string Colisiones::Entidad_Entidad(int n,int m){
     return Direccion;
 }
 
-std::string Colisiones::Entidad_Bloque(int n,int m){
+std::string Colisiones::Entidad_Bloque(int n,int m,int o){
     std::string Direccion = "";
+    
 }
 
-std::string Colisiones::Entidad_Jugador(int n){
+bool Colisiones::Entidad_Jugador(int n){
     //Formula para colisiones con circulos
     std::string Direccion ="";
-    if(sqrt(pow(entidades[n].getPosx()-player->getsprite().getPosition().x,2))-
-            pow(entidades[n].getPosy() - player->getsprite().getPosition().y,2) <= 
-                entidades[n].getRad()+30){
-        //std::cout<<
-        if(entidades[n].getPosx()-player->getsprite().getPosition().x>0){
-            Direccion+="r";//right
-        }
-        else if(entidades[n].getPosx()-player->getsprite().getPosition().x<0){
-            Direccion+="l";//left
-        }
-        else if(entidades[n].getPosy()-player->getsprite().getPosition().y<0){
-            Direccion+="b";//bottom
-        }
-        else if(entidades[n].getPosy()-player->getsprite().getPosition().y>0){
-            Direccion+="t";//top
-        }
+    if(sqrt(pow(abs(entidades[n].getPosx() - player->getsprite().getPosition().x),2) +
+            pow(abs(entidades[n].getPosy() - player->getsprite().getPosition().y),2)) <= 
+                entidades[n].getRad()+15){
+                    entidades[n].setcolor(255,255,255);
+        return 1;
     }
-    return Direccion;
+                    entidades[n].setcolor(0,0,0);
+    return 0;
     //if(entidades[n]);
 }
 
-void Colisiones::ColisionesEntidades(){
-    for (int i = 0; i < entidad_size; i++)
-    {
-        for (int j = 0; i < entidad_size; j++)
-        {
-        }
-        
+bool Colisiones::Entidad_Balas(int i,int j){//id Entidad, j->balaid
+
+    if(sqrt(pow(abs(entidades[i].getPosx()-player->getBala(j).getspritebala().getPosition().x),2) +
+            pow(abs(entidades[i].getPosy()-player->getBala(j).getspritebala().getPosition().y),2) )
+    <= entidades[i].getRad()+player->getBala(j).getspritebala().getScale().x){
+        return 1;
     }
-    
-}
-
-void Colisiones::ColisionesEntid_Bloq(){
-    
-}
-
-void Colisiones::ColisionesEntid_Jug(){
-    
+    return 0;
 }

@@ -6,7 +6,7 @@
 class Colisiones {
     Entidad *entidades = NULL;
     unsigned int entidad_size=0;
-    jugador *player= NULL;
+    jugador *player;
     int numbalas;
     Mapa *mapa;
 public:
@@ -20,11 +20,9 @@ public:
         numbalas=player->getBalasNum();
     }
     std::string Entidad_Entidad(int,int);
-    std::string Entidad_Bloque(int,int);
-    std::string Entidad_Jugador(int);
-    void ColisionesEntidades();
-    void ColisionesEntid_Jug();
-    void ColisionesEntid_Bloq();
+    std::string Entidad_Bloque(int,int,int);
+    bool Entidad_Jugador(int);
+    bool Entidad_Balas(int,int);
     void setEntidades(Entidad *entidades,uint entsize){
         this->entidades = entidades;
         entidad_size = entsize;    
@@ -32,6 +30,7 @@ public:
     }
     void setJugador(jugador *jugador){
         this->player= jugador;
+        numbalas=player->getBalasNum();
     }
 };
 

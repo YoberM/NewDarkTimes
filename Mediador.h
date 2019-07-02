@@ -16,6 +16,12 @@ class Mediator{
     sf::Texture *textbloques;
     sf::Texture *textjugador;
     sf::RenderWindow *window;
+    int salud=100;
+    Font font;
+    Text textopantalla;
+    int auxbalacontador=0;
+    int balanum;
+    bool boolbala=1;
 public:
     Mediator(){
     }
@@ -24,7 +30,12 @@ public:
         this->numEnt = numEnt;
         colisiones.setEntidades(entidades,numEnt);
         colisiones.setJugador(player);
-
+        font.loadFromFile("arial.ttf");
+        textopantalla.setFont(font);
+        textopantalla.setColor(sf::Color(50,100,200));
+        textopantalla.setString("Salud -> ");
+        textopantalla.setPosition(500,500);
+        textopantalla.setCharacterSize(25);
     }
     ~Mediator(){
         delete[] entidades;
@@ -33,7 +44,9 @@ public:
     void setEnt(Entidad*,uint);
     void setMapa(Mapa*);
     void setWindow(sf::RenderWindow*);
+    void setJugador(jugador*);
     void Acciones();
+    void AccionBala();
     void Spawn();
     bool SpawnComprobador(int,int);
     static void Colisionesthread(int,int,int,Colisiones&,Entidad*);

@@ -14,7 +14,7 @@
 
 using namespace std;
 
-#define Nentity (uint)100
+#define Nentity (uint)200
 
 int main(){
     // create the window
@@ -30,6 +30,8 @@ int main(){
     texturas=new sf::Texture[2];
     texturas[0].loadFromFile("Texturas/terreno3.png");
     texturas[1].loadFromFile("Texturas/terreno7.png");
+    //Jugador
+    jugador player;
     
     
 
@@ -41,6 +43,7 @@ int main(){
         mediator.setEnt(mobs,Nentity);
         mediator.setMapa(&render);
         mediator.setWindow(&window);
+        mediator.setJugador(&player);
 
     //!Mediator
 
@@ -51,8 +54,6 @@ int main(){
     Menu menu(pred_window_tamx,pred_window_tamy,window);
     bool menuopen=1;
     int contadorbalas=0;
-    //Jugador
-    jugador player;
 
     //Bala;
     bool boolbala=1;
@@ -99,23 +100,8 @@ int main(){
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
                 player.seguimiento.y=player.seguimiento.y+1;
             }
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                if(boolbala==1){
-
-                    balaarr[contadorbalas].setpos(player.getsprite().getPosition());
-                    balaarr[contadorbalas].setDirBala((Vector2f)player.getmouse());
-                    contadorbalas++;
-                    contadorbalas=contadorbalas%20;
-                    boolbala=0;
-                    //cout<<"--";
-                }
-            }
-            else {
-                boolbala=1;
-                //cout<<"|"<<contadorbalas<<"|";
-            }
             for(int i=0;i<20;i++){
-                balaarr[i].movebala((sf::Vector2f)sf::Mouse::getPosition());
+                balaarr[i].movebala();
                 window.draw(balaarr[i].getspritebala());
             }
             window.draw(player.getsprite());

@@ -46,4 +46,20 @@ public:
         return tipo;
     }
 };
+
+class StateBala{
+    char estado='I';//I inactivo;
+                    //A Activo
+public:
+    StateBala(){}
+    StateBala(char estado){
+        this->estado=estado;
+    }
+    void set(char estado){
+        this->estado=estado;
+    }
+    char get(){
+        return estado;
+    }
+}
 #endif

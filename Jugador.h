@@ -34,6 +34,7 @@ public:
         void girarmouse();
         void setmovmou();
         int getBalasNum(){return numbalas;}
+        bala& getBala(int i){return arrbalas[i];}
 
 
 

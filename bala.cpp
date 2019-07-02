@@ -41,7 +41,7 @@ void bala::setDirBala(Vector2f nuevodir){
 
 }
 
-void bala::movebala(Vector2f direccion){
+void bala::movebala(){
 	posicion.x+=mov.x;
 	posicion.y+=mov.y;
 	sprite_bala.setPosition(posicion);
