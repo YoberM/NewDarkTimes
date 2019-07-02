@@ -6,111 +6,125 @@
 #include "Zombie.h"
 #include "Colisiones.h"
 #include "Mediador.h"
+#include "MapModel.h"
+#include "Jugador.h"
+#include "bala.h"
+#include "menu.h"
 
+
+using namespace std;
 
 #define Nentity (uint)100
 
-int mapa_arr[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]={
-        {1,1,1,1,1,0,0,0,1,0,1,1,1,0,0,0},
-        {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-    };
-//g++ main.cpp -o test -lsfml-graphics -lsfml-window -lsfml-system Mapa.cpp window.cpp Entidad.cpp Area.cpp Colisiones.cpp Bloque.cpp
-
-// El Main esta muy frondoso, MAS ABSTRACCION!
 int main(){
     // create the window
-    sf::RenderWindow window(sf::VideoMode(pred_window_tamx,pred_window_tamy), "My window");
+    sf::RenderWindow window(sf::VideoMode(pred_window_tamx,pred_window_tamy), "NewDarkTimes");
     window.setMouseCursorGrabbed(0);
     srand(time(NULL));
+    //Declarando las entidades
     Entidad *mobs=new Entidad[Nentity];
-    for(int i = 0; i < Nentity; i++)
-    {
-        mobs[i].setPosx_y(1366/2,768/2);
-    }
-    
-    Colisiones col;
-    col.setEntidades(mobs,Nentity);
-    
-    int x=0;
     window.setFramerateLimit(60);
+
     //Texturas
     sf::Texture *texturas;
-    texturas=new sf::Texture[1];
-    texturas[0].loadFromFile("Texturas/terreno1.jpg");
-    // run the program as long as the window is open
-    Mapa render(800,pred_areas_numx,pred_bloq_numx,*texturas,mapa_arr);
-    Entidad jugador();
+    texturas=new sf::Texture[2];
+    texturas[0].loadFromFile("Texturas/terreno3.png");
+    texturas[1].loadFromFile("Texturas/terreno7.png");
+    
+    
+
+    //Mapa para el render
+    Mapa render(800,pred_areas_numx,pred_bloq_numx,texturas,mapa_arr);
     //Mediator
+        
         Mediator mediator;
         mediator.setEnt(mobs,Nentity);
         mediator.setMapa(&render);
         mediator.setWindow(&window);
 
     //!Mediator
-    
-    while (window.isOpen())
-    {
-        for(int i=0;i<Nentity;i++){
-            for(int j=0;j<Nentity;j++){
-                if(i==j)continue;
-                col.Entidad_Entidad(i,j);
-            }
-        }
-        // check all the window's events that were triggered since the last iteration of the loop
+
+    //Textura menu
+    sf::Texture texturamenu;
+
+    //Menu
+    Menu menu(pred_window_tamx,pred_window_tamy,window);
+    bool menuopen=1;
+    int contadorbalas=0;
+    //Jugador
+    jugador player;
+
+    //Bala;
+    bool boolbala=1;
+    bala *balaarr=new bala[20];
+
+    while (window.isOpen()){ //Este es el while del juego
+
         sf::Event event;
         while (window.pollEvent(event))
         {
-            // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-        // clear the window with black color
         window.clear(sf::Color::Black);
-        mediator.Dibujado();
-        mediator.Acciones();
-        //
-        //DIBUJO DEL MAPA
-        //render.Dibujar(window,1);
-        //render.Dibujar(window,2);
-        //render.Dibujar_mapa(window);
-        //render.Dibujar_Area(window,0);
+        if(menuopen){
+            menuopen=menu.Interaccion(window);
+            menu.drawfondo(window);
+		    menu.draw(window);
 
-        //
-        //
-        x=(x+1)%300;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))x=0;
-        std::cout<<x<<"||";
-        /*
-        for(int i=0;i<Nentity;i++){
+        }else{
+            mediator.Dibujado();
+            mediator.Acciones();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::F)){
+                for (int i = 0; i < Nentity; i++)
+                {
+                    mobs[i].setObj(sf::Mouse::getPosition().x,sf::Mouse::getPosition().y);
+                }
+                
+            }
+            
+            player.obtener_mouse(window);
+            player.setmovmou();
+            player.girarmouse();
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+                player.seguimiento.x=player.seguimiento.x+1;
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+                player.seguimiento.y=player.seguimiento.y-1;
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+                player.seguimiento.x=player.seguimiento.x-1;
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+                player.seguimiento.y=player.seguimiento.y+1;
+            }
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                mobs[i].setObj(sf::Mouse::getPosition().x+5,sf::Mouse::getPosition().y+5);   
-            }
-            else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-                    mobs[i].setObj(100*i%(16*100),100*i/(16*100)*100);
-            }
-            mobs[i].MoveAutomatico();
-            mobs[i].Dibujar(window);
-        }*/
+                if(boolbala==1){
 
-        // draw everything here...
-        // window.draw(...);
-        std::cout<<std::endl;
-        // end the current frame
+                    balaarr[contadorbalas].setpos(player.getsprite().getPosition());
+                    balaarr[contadorbalas].setDirBala((Vector2f)player.getmouse());
+                    contadorbalas++;
+                    contadorbalas=contadorbalas%20;
+                    boolbala=0;
+                    //cout<<"--";
+                }
+            }
+            else {
+                boolbala=1;
+                //cout<<"|"<<contadorbalas<<"|";
+            }
+            for(int i=0;i<20;i++){
+                balaarr[i].movebala((sf::Vector2f)sf::Mouse::getPosition());
+                window.draw(balaarr[i].getspritebala());
+            }
+            window.draw(player.getsprite());
+
+            
+
+
+
+        }
         window.display();
     }
 

@@ -4,11 +4,13 @@
 #include "Entidad.h"
 #include "Mapa.h"
 #include "Colisiones.h"
+#include "Zombie.h"
+#include "Jugador.h"
 class Mediator{
     Entidad *entidades;
     unsigned int numEnt;
     Mapa *mapa;
-    Entidad *jugador;
+    jugador *player;
     Colisiones colisiones;
     sf::Texture *textentity;
     sf::Texture *textbloques;
@@ -17,17 +19,24 @@ class Mediator{
 public:
     Mediator(){
     }
-    Mediator(Entidad *entidades,uint numEnt,Mapa mapa,Entidad *jugador){
+    Mediator(Entidad *entidades,uint numEnt,Mapa mapa,Zombie *jugador){
         //colisiones.setMapa(mapa);
         this->numEnt = numEnt;
         colisiones.setEntidades(entidades,numEnt);
-        colisiones.setJugador(jugador);
+        colisiones.setJugador(player);
+
+    }
+    ~Mediator(){
+        delete[] entidades;
     }
 
     void setEnt(Entidad*,uint);
     void setMapa(Mapa*);
     void setWindow(sf::RenderWindow*);
     void Acciones();
+    void Spawn();
+    bool SpawnComprobador(int,int);
+    static void Colisionesthread(int,int,int,Colisiones&,Entidad*);
     void Dibujado();
 
 };

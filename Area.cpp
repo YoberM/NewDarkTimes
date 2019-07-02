@@ -28,6 +28,7 @@ void Area::setTamBloq(int newtam){
 
 void Area::set_texture_bloq(const unsigned int n,sf::Texture &textura){
     arr[n].shape.setTexture(&textura);
+    arr[n].getState().set('c');
 }
 void Area::setnumx(const int newx){numx=newx;}
 void Area::setnumy(const int newy){numy=newy;}

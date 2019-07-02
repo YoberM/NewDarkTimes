@@ -1,17 +1,19 @@
 #ifndef Bloque_H
 #define Bloque_H
-#include <SFML/Graphics.hpp>
-#include <string>
+#include "Headers.h"
+#include "ValoresGlobales.h"
+#include "State.h"
 class Bloque
 {
 	float tam; //Tamaño del bloque 
     float posx,posy;
-    sf::Texture* textura;
     bool booltexture=0;//dato temporal hasta mejorar codigo
+    sf::Texture* textura;
     sf::RectangleShape shape;
     unsigned int x,y;
     friend class Mapa;
     friend class Area;
+    StateBloq state;
 public:
     Bloque();
     Bloque(const Bloque &);//constructor copia
@@ -25,6 +27,9 @@ public:
     int getTam();
     float getPosx();
     float getPosy();
+    void setState(char nuevo){state.set(nuevo);}
+    char getStateb(){return state.get();}
+    StateBloq getState(){return state;}
 
 };
 #endif 

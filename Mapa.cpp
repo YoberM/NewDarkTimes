@@ -37,7 +37,7 @@ Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq,sf::Texture &texturas
     }
     arr_areas=new_area;
 }
-Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq,sf::Texture &texturas,int mapbit[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]){ //tam_new tamaño del mapa ,n_cantidad= numero de areas
+Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq,sf::Texture *texturas,int mapbit[pred_areas_numx*pred_areas_numy][pred_bloq_numx*pred_bloq_numy]){ //tam_new tamaño del mapa ,n_cantidad= numero de areas
     //Areas
     area_numx=n_cantidad;
     area_numy=n_cantidad;
@@ -62,11 +62,11 @@ Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq,sf::Texture &texturas
         for(int j=0;j<area_numbloq;j++){
             new_area[i].addbloq(pred_bloq_tam);
             if(mapbit[i][j]==1){
-                new_area[i].set_texture_bloq(j,texturas);
+                new_area[i].set_texture_bloq(j,*texturas);
                 ward=!ward;
             }
             else{ 
-                new_area[i].setColorbloq(j,250,100,100);
+                new_area[i].set_texture_bloq(j,texturas[1]);
                 ward=!ward;
             }
         }
@@ -93,47 +93,18 @@ Mapa::Mapa(float tam_new,int n_cantidadx,int n_cantidady,int n_cantidadbloqx,int
     }
 }
 
-Mapa::Mapa(float tam_new,int cantidad,int *new_array){
-    ;
-}
 
 Mapa::~Mapa(){
     delete[] arr_areas;
 }
 
-void Mapa::Random(sf::RenderWindow &window){
-    sf::Vector2u asd= window.getSize();
-    bool aux=0;
-    for(int i=0;i<area_numx;i++){
-        for(int j=0;j<area_numy; j++)
-        {
-            if(aux=0){
-                arr_areas->arr[i*area_numx+area_numy].shape.setFillColor(sf::Color(255,255,255));
-            }
-            else
-            {
-                arr_areas->arr[i*area_numx+area_numy].shape.setFillColor(sf::Color(0,0,0));
-            }
-            arr_areas->arr[i*area_numx+area_numy].shape.setPosition(sf::Vector2f(j*tam,i*tam));
-            Dibujar(window,i*area_numx+area_numy);
-        }
-        
-    }
-}
-
 void Mapa::Dibujar_mapa(sf::RenderWindow &window){
     for(int i = 0; i < area_num; i++){
         Dibujar_Area(window,i);
-        //std::cout<<"Area :"<<i<<"Posx,y=("<<arr_areas[i].posx<<","<<arr_areas[i].posy<<std::endl;
     }
     
 }
 
-void Mapa::Dibujar(sf::RenderWindow &window,int n){
-    int ward=arr_areas->arr[n].shape.getFillColor().b;
-    std::cout<<arr_areas->arr[n].shape.getSize().x<<std::endl;
-    window.draw(arr_areas->arr[n].shape);
-}
 
 void Mapa::Dibujar_Area(sf::RenderWindow &window,int n){
     for(int i=0;i<area_numbloq;i++){

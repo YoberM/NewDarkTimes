@@ -57,6 +57,11 @@ public:
     void setposy(const float);
     void setposx_y(const float,const float);
     void setposx_ybloq(unsigned int,const float,const float);
+    float getnumbloq(){return size;}
+    float getposx(){return posx;}
+    float getposy(){return posy;}
+    float getbloqtam(){return bloqtam;}
+    Bloque* getbloq(int i){return &arr[i];}
 };
 
 #endif //AREA_H

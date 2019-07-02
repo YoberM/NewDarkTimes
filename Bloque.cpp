@@ -1,5 +1,4 @@
 #include "Bloque.h"
-#include "ValoresGlobales.h"
 
 Bloque::Bloque(){
     tam=pred_bloq_tam;

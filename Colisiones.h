@@ -2,19 +2,22 @@
 #define COLISIONES_H
 #include "Mapa.h"
 #include "Entidad.h"
+#include "Jugador.h"
 class Colisiones {
     Entidad *entidades = NULL;
     unsigned int entidad_size=0;
-    Entidad *jugador= NULL;
+    jugador *player= NULL;
+    int numbalas;
     Mapa *mapa;
 public:
     Colisiones(){
         
     }
-    Colisiones(Entidad *n_ent,int n_enti_size,Entidad *n_jugador){
+    Colisiones(Entidad *n_ent,int n_enti_size,jugador *n_jugador){
         entidades=n_ent;
         entidad_size=n_enti_size;
-        jugador=n_jugador;
+        player=n_jugador;
+        numbalas=player->getBalasNum();
     }
     std::string Entidad_Entidad(int,int);
     std::string Entidad_Bloque(int,int);
@@ -27,8 +30,8 @@ public:
         entidad_size = entsize;    
         std::cout<<entidad_size;
     }
-    void setJugador(Entidad *jugador){
-        this->jugador = jugador;
+    void setJugador(jugador *jugador){
+        this->player= jugador;
     }
 };
 

@@ -1,7 +1,7 @@
 #ifndef VALORESGLOBALES_H
 #define VALORESGLOBALES_H
 //Atributos window
-#define pred_window_tamx 1400
+#define pred_window_tamx 1000
 #define pred_window_tamy 1000
 //Atributos de MAPA
 #define pred_mapx_tam 1600   //en este caso la relacion es de 5/4
@@ -20,8 +20,9 @@
 
 
 //Atributos predeterminados ENEMIGOS
-#define pred_enemy_tam 7.5      //RADIO
-#define pred_enemy_mov 250
+#define pred_enemy_tam 10      //RADIO
+#define pred_enemy_mov 200
+#define pred_enemy_movrango 2.5
 #define pred_enemy_life 100     //faltan agregar estos 3 datos
 #define pred_enemy_resistance 20
 #define pred_enemy_dmg 15
@@ -32,5 +33,9 @@
 #define pred_neutral_life 100   
 #define pred_neutral_resistance 30
 #define pred_neutral_dmg 20
+
+//Atributos predeterminados balas
+#define pred_bala_velocidad 5
+#define pred_bala_num 20;
 
 #endif
