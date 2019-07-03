@@ -49,7 +49,7 @@ public:
     void addbloq(int);
     void setColorbloq(int ,int,int,int);
     void setTamBloq(int);
-    void set_texture_bloq(const unsigned int,sf::Texture &);
+    void set_texture_bloq(const unsigned int,sf::Texture &,char);
     void setnumx(const int);
     void setnumy(const int);
     void setnumx_y(const int,const int);

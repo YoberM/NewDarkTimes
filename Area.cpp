@@ -6,9 +6,9 @@ void Area::addbloq(int newtam){
         n_arr[i]=arr[i];
     }
     //seteamos X y Y , que son nuestros "indices" ya que 
-    //Nuestro array de bloques es una malla
-    n_arr[size-1].x=(size-1)/numx;
-    n_arr[size-1].y=(size-1)%numy;
+    //Nuestro array de bloques es una matriz
+    n_arr[size-1].x=(size-1)/numx;//fila
+    n_arr[size-1].y=(size-1)%numy;//columna
 
     n_arr[size-1].setTam(newtam);
     n_arr[size-1].setPosx_y(n_arr[size-1].x*bloqtam+posx,n_arr[size-1].y*bloqtam+posy);
@@ -26,9 +26,9 @@ void Area::setTamBloq(int newtam){
     bloqtam=newtam;
 }
 
-void Area::set_texture_bloq(const unsigned int n,sf::Texture &textura){
+void Area::set_texture_bloq(const unsigned int n,sf::Texture &textura,char nuevo){
     arr[n].shape.setTexture(&textura);
-    arr[n].getState().set('c');
+    arr[n].setState(nuevo);
 }
 void Area::setnumx(const int newx){numx=newx;}
 void Area::setnumy(const int newy){numy=newy;}

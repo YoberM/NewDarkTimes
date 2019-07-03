@@ -19,7 +19,6 @@ private:
     StateEntidad state;
 public:
     Entidad();
-    virtual ~Entidad();
     void setcolor(uint,uint,uint);//borrar
 	void setObj(float,float);
     void setPosx(float);

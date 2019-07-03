@@ -13,7 +13,7 @@ Entidad::Entidad(){
     //set
     setPosx_y(rad,rad);
     setObj(0,0);
-    //
+    //Radio
     doll.setRadius(rad);
     //color
     int r=rand()%255;
@@ -24,9 +24,6 @@ Entidad::Entidad(){
     doll.setOutlineColor(sf::Color(b,r,g));
     doll.setOutlineThickness(1);
 
-}
-Entidad::~Entidad(){
-    
 }
 
 void Entidad::setcolor(uint r,uint g,uint b){

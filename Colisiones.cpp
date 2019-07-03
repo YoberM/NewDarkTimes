@@ -20,12 +20,50 @@ std::string Colisiones::Entidad_Entidad(int n,int m){
         if(entidades[n].getPosy()-entidades[m].getPosy()<=0){
             Direccion+="b";//bottom
         }
-    }
+    };
     return Direccion;
 }
 
-std::string Colisiones::Entidad_Bloque(int n,int m,int o){
-    std::string Direccion = "";
+std::string Colisiones::Entidad_Bloque(int n,int m,int o){//N entidad, M area , O Bloque;
+    float ex=entidades[n].getPosx();
+    float ey=entidades[n].getPosy();
+    float er=entidades[n].getRad();
+    float bloqtam=mapa->getArea(m)->getbloq(o)->getTam();
+    float bloqx=mapa->getArea(m)->getbloq(o)->getPosx();
+    float bloqy=mapa->getArea(m)->getbloq(o)->getPosy();
+    if(ex<bloqx&&ex>bloqx+bloqtam){
+        float px=ex;
+        float py;
+        if(ey<bloqy+bloqtam/2){
+            py=ey+er;
+            if(bloqy-ey<=0){
+                return "b";
+            }
+        }
+        else if(ey>bloqy+bloqtam/2){
+            py=ey-er;
+            if (ey-bloqy<=0){
+                return "t";
+            }
+        }
+    }
+    else if(ey<bloqy&&ey>bloqy+bloqtam){
+        float py=ey;
+        float px;
+        if(ex<bloqx+bloqtam/2){
+            px=ex+er;
+            if(bloqx-ex<=0){
+                return "b";
+            }
+        }
+        else if(ex>bloqx+bloqtam/2){
+            px=ex-er;
+            if (ex-bloqx<=0){
+                return "t";
+            }
+        }
+    }
+    return "";
     
 }
 

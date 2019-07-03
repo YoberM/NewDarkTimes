@@ -26,7 +26,7 @@ Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq,sf::Texture &texturas
         for(int j=0;j<area_numbloq;j++){
             new_area[i].addbloq(pred_bloq_tam);
             if(ward){
-                new_area[i].set_texture_bloq(j,texturas);
+                new_area[i].set_texture_bloq(j,texturas,'c');
                 ward=!ward;
             }
             else{ 
@@ -62,11 +62,11 @@ Mapa::Mapa(float tam_new,int n_cantidad,int n_cantidadbloq,sf::Texture *texturas
         for(int j=0;j<area_numbloq;j++){
             new_area[i].addbloq(pred_bloq_tam);
             if(mapbit[i][j]==1){
-                new_area[i].set_texture_bloq(j,*texturas);
+                new_area[i].set_texture_bloq(j,texturas[0],'c');
                 ward=!ward;
             }
             else{ 
-                new_area[i].set_texture_bloq(j,texturas[1]);
+                new_area[i].set_texture_bloq(j,texturas[1],'s');
                 ward=!ward;
             }
         }

@@ -25,7 +25,7 @@ public:
     void movebala();
     void setvector(Vector2f direccion_bala2);
     void setDirBala(Vector2f);
-    StateBala getState(){return state;}
+    StateBala& getState(){return state;}
 };
 
 #endif 

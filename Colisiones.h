@@ -32,6 +32,9 @@ public:
         this->player= jugador;
         numbalas=player->getBalasNum();
     }
+    void setMapa(Mapa* mapa){
+        this->mapa=mapa;
+    }
 };
 
 #endif //COLISIONES_H

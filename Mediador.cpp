@@ -1,9 +1,33 @@
 #include "Headers.h"
 #include "Mediador.h"
+#include <thread>
 
 void Mediator::Acciones(){
+    ColisionesEntidadThreads();
+    AccionBala();
+    ColisionBala();
+    
+    /*
     for(int i=0;i<numEnt;i++){
-        for(int j=0;j<numEnt;j++){
+        for(int j=0;j<mapa->getarea_num();j++){
+            for(int k=0;k<mapa->getArea(j)->getnumbloq();k++){
+                cout<<"i->"<<i<<"\nj->"<<j<<"\nk->"<<k<<endl;
+                colisiones.Entidad_Bloque(i,j,k);
+            }
+        }
+    }*/
+
+    for(int i=0;i<numEnt;i++){
+        entidades[i].setStateres("");
+    }
+    Spawn();
+}
+
+//https://www.bogotobogo.com/cplusplus/C11/3_C11_Threading_Lambda_Functions.php
+void Mediator::ColisionesEntidadThreads(){
+    thread t([](int inicio,int numEnt,Entidad* entidades,Colisiones colisiones,int salud){
+    for(int i=inicio;i<numEnt;i++){
+        for(int j=inicio;j<numEnt;j++){
             if(i==j)continue;
             if(entidades[i].getState().get()=='A'){
                 entidades[i].getState().addres(entidades[i].getStates() + colisiones.Entidad_Entidad(i,j));
@@ -15,7 +39,64 @@ void Mediator::Acciones(){
         }
         entidades[i].MoveAutomatico();
     }
-    AccionBala();
+    },0,numEnt/4,entidades,colisiones,salud);
+
+    thread t2([](int inicio,int numEnt,Entidad* entidades,Colisiones colisiones,int salud){
+    for(int i=inicio;i<numEnt;i++){
+        for(int j=inicio;j<numEnt;j++){
+            if(i==j)continue;
+            if(entidades[i].getState().get()=='A'){
+                entidades[i].getState().addres(entidades[i].getStates() + colisiones.Entidad_Entidad(i,j));
+            }
+        }
+        if(colisiones.Entidad_Jugador(i)){
+            std::cout<<-1<<"<salud>"<<salud<<"<-"<<i<<std::endl;
+            salud--;
+        }
+        entidades[i].MoveAutomatico();
+    }
+    },numEnt/4,numEnt*2/4,entidades,colisiones,salud);
+
+    thread t3([](int inicio,int numEnt,Entidad* entidades,Colisiones colisiones,int salud){
+    for(int i=inicio;i<numEnt;i++){
+        for(int j=inicio;j<numEnt;j++){
+            if(i==j)continue;
+            if(entidades[i].getState().get()=='A'){
+                entidades[i].getState().addres(entidades[i].getStates() + colisiones.Entidad_Entidad(i,j));
+            }
+        }
+        if(colisiones.Entidad_Jugador(i)){
+            std::cout<<-1<<"<salud>"<<salud<<"<-"<<i<<std::endl;
+            salud--;
+        }
+        entidades[i].MoveAutomatico();
+    }
+    },numEnt*2/4,numEnt*3/4,entidades,colisiones,salud);
+
+    thread t4([](int inicio,int numEnt,Entidad* entidades,Colisiones colisiones,int salud){
+    for(int i=inicio;i<numEnt;i++){
+        for(int j=inicio;j<numEnt;j++){
+            if(i==j)continue;
+            if(entidades[i].getState().get()=='A'){
+                entidades[i].getState().addres(entidades[i].getStates() + colisiones.Entidad_Entidad(i,j));
+            }
+        }
+        if(colisiones.Entidad_Jugador(i)){
+            std::cout<<-1<<"<salud>"<<salud<<"<-"<<i<<std::endl;
+            salud--;
+        }
+        entidades[i].MoveAutomatico();
+    }
+    },numEnt*3/4,numEnt,entidades,colisiones,salud);
+
+    t.join();
+    t2.join();
+    t3.join();
+    t4.join();
+
+}
+
+void Mediator::ColisionBala(){
     for(int i=0;i<numEnt;i++){
         for(int j=0;j<player->getBalasNum();j++){
             if(player->getBala(j).getState().get()=='A'){
@@ -26,20 +107,10 @@ void Mediator::Acciones(){
             }
         }
     }
-    
-    for(int i=0;i<numEnt;i++){
-        for(int j=0;j<mapa->getarea_num();j++){
-            for(int k=0;k<mapa->getArea(j)->getnumbloq();k++){
-                
-            }
-        }
-    }
 
-    for(int i=0;i<numEnt;i++){
-        entidades[i].setStateres("");
-    }
-    Spawn();
 }
+
+
 void Mediator::AccionBala(){
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
         if(boolbala==1){

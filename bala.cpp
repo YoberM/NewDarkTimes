@@ -26,17 +26,17 @@ Sprite bala::getspritebala()
     return sprite_bala;
 }
 
-void bala::setpos(Vector2f nuevopos)
+void bala::setpos(Vector2f nuevopos)//Seteamos la bala en la posicion del jugador
 {
 	posicion=nuevopos;
 	sprite_bala.setPosition(posicion);
 }
 
-void bala::setDirBala(Vector2f nuevodir){
-	float movx,movy;
+void bala::setDirBala(Vector2f nuevodir){//Posicion del mouse, y formula matematica para ver cuanto tiene que moverse en x y en Y
+	float movx,movy;//auxiliares para comprender mejor el codigo
 	movx=(nuevodir.x-posicion.x) /(sqrt (pow(nuevodir.x-posicion.x,2) + pow(nuevodir.y-posicion.y,2)) )*pred_bala_velocidad;
     movy=(nuevodir.y-posicion.y) /(sqrt (pow(nuevodir.y-posicion.y,2) + pow(nuevodir.x-posicion.x,2)) )*pred_bala_velocidad;
-    mov.x=movx;
+    mov.x=movx;//mov es el vector de direccion
 	mov.y=movy;
 
 }

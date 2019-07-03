@@ -61,5 +61,6 @@ public:
     char get(){
         return estado;
     }
-}
+};
+
 #endif

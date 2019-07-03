@@ -35,7 +35,7 @@
 #define pred_neutral_dmg 20
 
 //Atributos predeterminados balas
-#define pred_bala_velocidad 5
-#define pred_bala_num 20;
+#define pred_bala_velocidad 10
+#define pred_bala_num 20
 
 #endif

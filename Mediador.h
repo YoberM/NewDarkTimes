@@ -30,6 +30,7 @@ public:
         this->numEnt = numEnt;
         colisiones.setEntidades(entidades,numEnt);
         colisiones.setJugador(player);
+        colisiones.setMapa(&mapa);
         font.loadFromFile("arial.ttf");
         textopantalla.setFont(font);
         textopantalla.setColor(sf::Color(50,100,200));
@@ -47,9 +48,10 @@ public:
     void setJugador(jugador*);
     void Acciones();
     void AccionBala();
-    void Spawn();
+    void ColisionBala();
+    void ColisionesEntidadThreads();
+    void Spawn();//"Object Pool"
     bool SpawnComprobador(int,int);
-    static void Colisionesthread(int,int,int,Colisiones&,Entidad*);
     void Dibujado();
 
 };

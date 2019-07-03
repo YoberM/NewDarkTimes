@@ -14,7 +14,7 @@
 
 using namespace std;
 
-#define Nentity (uint)200
+#define Nentity (uint)1000
 
 int main(){
     // create the window
@@ -59,21 +59,83 @@ int main(){
     bool boolbala=1;
     bala *balaarr=new bala[20];
 
+    //Menu;
+    bool menus=true;
+    bool juego=false;
+
+
     while (window.isOpen()){ //Este es el while del juego
 
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        window.clear(sf::Color::Black);
+       
+        /* 
         if(menuopen){
             menuopen=menu.Interaccion(window);
             menu.drawfondo(window);
 		    menu.draw(window);
+        }
+        */
 
-        }else{
+       if(menus){
+        sf::Event event1;
+
+		while (window.pollEvent(event1))
+		{
+			switch (event1.type)
+			{
+			case sf::Event::KeyReleased:
+				switch (event1.key.code)
+				{
+				case sf::Keyboard::Up:
+					menu.Mover_arriba();
+					break;
+
+				case sf::Keyboard::Down:
+					menu.Mover_abajo();
+					break;
+
+				case sf::Keyboard::Return:
+					switch (menu.get_presionado())
+					{
+					case 0:
+						std::cout << "Play button has been pressed" << std::endl;
+                        juego=true;
+                        menus=false;
+						break;
+					case 1:
+						std::cout << "Option button has been pressed" << std::endl;
+						break;
+					case 2:
+						window.close();
+						break;
+					}
+
+					break;
+				}
+
+				break;
+			case sf::Event::Closed:
+				window.close();
+
+				break;
+
+			}
+		}
+
+		window.clear();
+        menu.drawfondo(window);
+		menu.draw(window);
+
+		window.display();
+	}//main
+
+        if(juego){
+             sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+            window.clear(sf::Color::Black);
             mediator.Dibujado();
             mediator.Acciones();
 
@@ -112,7 +174,6 @@ int main(){
 
         }
         window.display();
-    }
-
+    }//cierre del while del juego
     return 0;
 }

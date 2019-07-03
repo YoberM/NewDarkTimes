@@ -64,10 +64,10 @@ void Menu::Mover_arriba()
 {
     if (seleccionar - 1 >= 0)
 	{
-		menu[seleccionar].setColor(Color(30,30,30));
+		menu[seleccionar].setColor(Color(sf::Color::Black));
 		menu[seleccionar].setCharacterSize(tam);
 		seleccionar--;
-		menu[seleccionar].setColor(Color(230,0,0));
+		menu[seleccionar].setColor(Color(sf::Color::Red));
 		menu[seleccionar].setCharacterSize(40);
 	}
 }
@@ -76,10 +76,10 @@ void Menu::Mover_abajo()
 {
     if (seleccionar + 1 <= 2)
 	{
-		menu[seleccionar].setColor(Color(230,230,230));
+		menu[seleccionar].setColor(Color(sf::Color::Black));
 		menu[seleccionar].setCharacterSize(tam);
 		seleccionar++;
-		menu[seleccionar].setColor(Color(230,0,0));
+		menu[seleccionar].setColor(Color(sf::Color::Red));
 		menu[seleccionar].setCharacterSize(40);
 	}
 }
